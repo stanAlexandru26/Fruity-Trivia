@@ -1,23 +1,144 @@
-import logo from './logo.svg';
-import './App.css';
+import "./App.css";
+import React, { useState, useEffect } from "react";
+import { Route, Routes, useNavigate } from "react-router-dom";
+import axios from "axios";
+
+import Dashboard from "./pages/dashboard/Dashboard";
+import Trivia from "./pages/trivia/Trivia";
+import Results from "./pages/results/Results";
+import Error from "./pages/error/Error";
 
 function App() {
+  const sessionTokenURL = "https://opentdb.com/api_token.php?command=request";
+  const categoryURL = "https://opentdb.com/api_category.php";
+
+  const [sessionToken, setSessionToken] = useState(
+    sessionStorage.getItem("sessionToken") || ""
+  );
+
+  const [categoriesData, setCategoriesData] = useState();
+  const [triviaData, setTriviaData] = useState();
+  const [responseCode, setResponseCode] = useState(null);
+
+  const [score, setScore] = useState(0);
+
+  const navigate = useNavigate();
+
+  const [questionParameters, setQuestionParameters] = useState({
+    amount: 6,
+    category: { id: 9, name: "General Knowledge" },
+    difficulty: "medium",
+    type: "multiple",
+  });
+
+  useEffect(() => {
+    if (!sessionToken) {
+      axios.get(sessionTokenURL).then((res) => {
+        setSessionToken(res.data.token);
+        sessionStorage.setItem("sessionToken", res.data.token);
+        console.log(res.data.token);
+      });
+    }
+
+    axios.get(categoryURL).then((res) => {
+      setCategoriesData(res.data.trivia_categories);
+      console.log(res.data.trivia_categories);
+    });
+  }, []);
+
+  function handleChange(event) {
+    setQuestionParameters((prevQuestionParamenters) => {
+      return {
+        ...prevQuestionParamenters,
+        [event.target.name]: event.target.value,
+      };
+    });
+  }
+
+  function handleNewGame() {
+    setScore(0);
+    setTriviaData(null);
+    navigate("/");
+  }
+
+  async function startQuiz(event) {
+    event.preventDefault();
+    await axios
+      .get(
+        `https://opentdb.com/api.php?amount=${
+          questionParameters.amount
+        }&category=${
+          typeof questionParameters.category === "object"
+            ? questionParameters.category.id
+            : questionParameters.category
+        }&difficulty=${questionParameters.difficulty}&type=${
+          questionParameters.type
+        }&token=${sessionToken}&encode=base64`
+      )
+      .then((res) => {
+        console.log(res.data.results);
+        setTriviaData(res.data.results);
+        setResponseCode(res.data.response_code);
+        if (res.data.response_code !== 0) {
+          navigate("/error");
+        } else {
+          navigate("/trivia");
+        }
+      });
+  }
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div className="app">
+      <div className="app__wrapper">
+        <div className="app__wrapper__navbar"></div>
+        <div className="app__wrapper__content">
+          <Routes>
+            <Route
+              path="/"
+              element={
+                <Dashboard
+                  questionParameters={questionParameters}
+                  categoriesData={categoriesData}
+                  handleChange={handleChange}
+                  startQuiz={startQuiz}
+                />
+              }
+            />
+            <Route
+              path="/error"
+              element={
+                <Error
+                  responseCode={responseCode}
+                  setResponseCode={setResponseCode}
+                />
+              }
+            />
+
+            <Route
+              path="/trivia"
+              element={
+                <Trivia
+                  triviaData={triviaData}
+                  score={score}
+                  setScore={setScore}
+                  handleNewGame={handleNewGame}
+                />
+              }
+            />
+            <Route
+              path="/results"
+              element={
+                <Results
+                  score={score}
+                  setScore={setScore}
+                  setTriviaData={setTriviaData}
+                  triviaData={triviaData}
+                />
+              }
+            />
+          </Routes>
+        </div>
+      </div>
     </div>
   );
 }
