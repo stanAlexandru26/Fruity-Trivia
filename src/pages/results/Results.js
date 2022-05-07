@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import Confetti from "react-confetti";
 import "./Results.css";
+import Button from "../../components/Button";
 
 export default function Results({
   score,
@@ -43,9 +44,9 @@ export default function Results({
       )}
       <h2 className="result__message">{message}</h2>
 
-      <button className="result__button" onClick={handleNewGame}>
+      <Button className="result__button" onClick={handleNewGame}>
         New Game
-      </button>
+      </Button>
     </div>
   );
 }

@@ -1,4 +1,5 @@
 import React from "react";
+import Button from "../../components/Button";
 import "./Dashboard.css";
 
 export default function Dashboard({
@@ -61,9 +62,10 @@ export default function Dashboard({
               <option value={"hard"}>Hard</option>
             </select>
           </div>
-          <button className="form__button" type="submit">
+
+          <Button className="form__button" onClick={startQuiz}>
             Start Playing
-          </button>
+          </Button>
         </form>
       </div>
     </div>

@@ -1,7 +1,8 @@
 import React from "react";
 import "./Question.css";
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import Button from "../Button";
 
 export default function Question({
   triviaData,
@@ -68,28 +69,28 @@ export default function Question({
       <div className="question__answer_array">
         {shuffledAnswersArray &&
           shuffledAnswersArray.map((answer, index) => (
-            <button
+            <Button
               className={`answer  ${
                 selectedAnswer && handleSelect(answer)
               } answer__${index} `}
-              key={index}
               onClick={() => handleAnswer(answer)}
               disabled={selectedAnswer !== null}
             >
               {atob(answer)}
-            </button>
+            </Button>
           ))}
       </div>
 
       <div className="question__controls">
-        <button className="question__controls--quit " onClick={handleNewGame}>
+        <Button onClick={handleNewGame} className="question__controls--quit ">
           Quit
-        </button>
-        <button onClick={handleNextQuestion}>
+        </Button>
+
+        <Button onClick={handleNextQuestion}>
           {currentQuestion === triviaData.length - 1
             ? "Finish"
             : "Next Question"}
-        </button>
+        </Button>
       </div>
     </div>
   );

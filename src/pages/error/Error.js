@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
+import Button from "../../components/Button";
 import "./Error.css";
 
 export default function Error({ responseCode, setResponseCode }) {
@@ -8,17 +9,17 @@ export default function Error({ responseCode, setResponseCode }) {
 
   useEffect(() => {
     if (responseCode === 0) {
-      setErrorMessage("Everithing should be fine!");
+      setErrorMessage("Everything should be fine!");
     }
     if (responseCode === 1) {
-      setErrorMessage("There are not enought questions in the database!");
+      setErrorMessage("There are not enoughs questions in the database!");
     }
     if (responseCode === 2) {
       setErrorMessage("Search criteria contains a invalid value! Try again!");
     }
     if (responseCode === 3) {
       setErrorMessage(
-        "Session Token does not exist.Plase close the browser and reopen Fruitty Trivia!"
+        "Session Token does not exist.Please close the browser and reopen Fruitty Trivia!"
       );
     }
     if (responseCode === 4) {
@@ -37,9 +38,9 @@ export default function Error({ responseCode, setResponseCode }) {
     <div className="error">
       <h1 className="error__code">Error code: {`${responseCode}`}</h1>
       <h2 className="error__message">{errorMessage}</h2>
-      <button className="error__button" onClick={handleError}>
+      <Button className="error__button" onClick={handleError}>
         Go back
-      </button>
+      </Button>
     </div>
   );
 }
