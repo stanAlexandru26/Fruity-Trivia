@@ -3,6 +3,7 @@ import "./Question.css";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import Button from "../Button";
+import Header from "../Header";
 
 export default function Question({
   triviaData,
@@ -56,9 +57,10 @@ export default function Question({
 
   return (
     <div className="question">
-      <h2 className="question__question">
+      <Header className="question__question">
         {atob(triviaData[currentQuestion].question)}
-      </h2>
+      </Header>
+
       <div className="question__counter">
         <h3>
           Question {currentQuestion + 1} out of {triviaData.length}

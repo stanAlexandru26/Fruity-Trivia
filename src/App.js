@@ -36,15 +36,13 @@ function App() {
       axios.get(sessionTokenURL).then((res) => {
         setSessionToken(res.data.token);
         sessionStorage.setItem("sessionToken", res.data.token);
-        console.log(res.data.token);
       });
     }
 
     axios.get(categoryURL).then((res) => {
       setCategoriesData(res.data.trivia_categories);
-      console.log(res.data.trivia_categories);
     });
-  }, []);
+  }, [sessionToken]);
 
   function handleChange(event) {
     setQuestionParameters((prevQuestionParamenters) => {
@@ -76,7 +74,6 @@ function App() {
         }&token=${sessionToken}&encode=base64`
       )
       .then((res) => {
-        console.log(res.data.results);
         setTriviaData(res.data.results);
         setResponseCode(res.data.response_code);
         if (res.data.response_code !== 0) {

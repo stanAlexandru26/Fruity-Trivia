@@ -3,6 +3,7 @@ import { useNavigate } from "react-router-dom";
 import Confetti from "react-confetti";
 import "./Results.css";
 import Button from "../../components/Button";
+import Header from "../../components/Header";
 
 export default function Results({
   score,
@@ -42,8 +43,7 @@ export default function Results({
       {score === triviaData.length && (
         <Confetti width={window.innerWidth} height={window.innerHeight} />
       )}
-      <h2 className="result__message">{message}</h2>
-
+      <Header className="result__message">{message}</Header>
       <Button className="result__button" onClick={handleNewGame}>
         New Game
       </Button>

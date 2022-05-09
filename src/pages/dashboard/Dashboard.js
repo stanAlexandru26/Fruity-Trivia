@@ -1,5 +1,6 @@
 import React from "react";
 import Button from "../../components/Button";
+import Header from "../../components/Header";
 import "./Dashboard.css";
 
 export default function Dashboard({
@@ -10,7 +11,7 @@ export default function Dashboard({
 }) {
   return (
     <div className="dashboard">
-      <h1 className="dashboard_welcome">Welcome to Fruitty Trivia!</h1>
+      <Header className="dashboard_welcome">Welcome to Fruitty Trivia!</Header>
       <div>
         <form className="dashboard__form" onSubmit={startQuiz}>
           <div className="form__amount">

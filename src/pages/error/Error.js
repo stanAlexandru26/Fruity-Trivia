@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import Button from "../../components/Button";
+import Header from "../../components/Header";
 import "./Error.css";
 
 export default function Error({ responseCode, setResponseCode }) {
@@ -36,7 +37,7 @@ export default function Error({ responseCode, setResponseCode }) {
 
   return (
     <div className="error">
-      <h1 className="error__code">Error code: {`${responseCode}`}</h1>
+      <Header className="error__code">Error code: {`${responseCode}`}</Header>
       <h2 className="error__message">{errorMessage}</h2>
       <Button className="error__button" onClick={handleError}>
         Go back
