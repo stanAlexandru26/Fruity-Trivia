@@ -32,13 +32,17 @@ export default function Error({ responseCode, setResponseCode }) {
 
   function handleError() {
     setResponseCode(null);
-    navigate("/");
+    navigate("/home");
   }
 
   return (
     <div className="error">
-      <Header className="error__code">Error code: {`${responseCode}`}</Header>
-      <h2 className="error__message">{errorMessage}</h2>
+      <Header className="error__code">
+        {responseCode
+          ? `Error code:${responseCode}`
+          : "Sorry that page doesn't exist"}
+      </Header>
+      {errorMessage && <h2 className="error__message">{errorMessage}</h2>}
       <Button className="error__button" onClick={handleError}>
         Go back
       </Button>

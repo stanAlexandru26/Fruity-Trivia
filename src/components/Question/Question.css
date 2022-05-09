@@ -4,6 +4,7 @@
   display: flex;
   flex-direction: column;
   gap: 20px;
+  max-height: 100%;
 }
 .question button:not([disabled]):hover {
   transition-duration: 0.2s;
@@ -41,7 +42,7 @@
     rgba(0, 0, 0, 0.3) 0px 1px 3px -1px;
   position: relative;
 }
-.queston__error {
+.question__error {
   background-color: #ff0800;
   text-align: center;
   border-radius: 1rem;

@@ -65,7 +65,7 @@ export default function Question({
         <h3>
           Question {currentQuestion + 1} out of {triviaData.length}
         </h3>
-        {error && <h3 className="queston__error">Please select a answer</h3>}
+        {error && <h3 className="question__error">Please select a answer</h3>}
       </div>
 
       <div className="question__answer_array">

@@ -35,7 +35,7 @@ export default function Results({
     setScore(0);
     setTriviaData(null);
     setMessage("");
-    navigate("/");
+    navigate("/home");
   };
 
   return (

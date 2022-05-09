@@ -1,11 +1,6 @@
-.app {
-  height: 100vh;
-  width: 100vw;
-}
-
 .app__wrapper {
-  height: 100vh;
-  width: 100vw;
+  height: 100%;
+  width: 100%;
   display: grid;
   grid-template-columns: repeat(7, 1fr);
   grid-template-rows: repeat(6, 1fr);
@@ -17,15 +12,25 @@
   box-shadow: rgba(0, 0, 0, 0.25) 0px 13px 27px -5px,
     rgba(214, 214, 214, 0.3) 0px 8px 16px -8px;
   padding: 2rem;
+  display: flex;
 }
 
-.color {
+/* .color {
   background-color: #ec5d57;
   background-color: #dfe656;
   background-color: #fbf8cc;
   background-color: #f9928e;
   background-color: #fdf29c;
   background-color: #ecce24;
+} */
+@media (max-width: 640px) {
+  .app__wrapper {
+    grid-template-columns: 1fr;
+    grid-template-rows: 1fr;
+  }
+  .app__wrapper__content {
+    grid-area: 1 / 1 / 2 / 2;
+    border-radius: 0rem;
+    padding: 2rem 1rem;
+  }
 }
-
-

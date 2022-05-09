@@ -14,7 +14,7 @@ export default function Dashboard({
       <Header className="dashboard_welcome">Welcome to Fruitty Trivia!</Header>
       <div>
         <form className="dashboard__form" onSubmit={startQuiz}>
-          <div className="form__amount">
+          <div className="form__input">
             <label htmlFor="amount">Question Amount:</label>
             <input
               type="number"
@@ -27,7 +27,7 @@ export default function Dashboard({
               id="amount"
             />
           </div>
-          <div className="form__category">
+          <div className="form__input">
             <label htmlFor="category">Question Category:</label>
             <select
               type="text"
@@ -48,7 +48,7 @@ export default function Dashboard({
               )}
             </select>
           </div>
-          <div className="form__difficulty">
+          <div className="form__input">
             <label htmlFor="difficulty">Difficulty:</label>
             <select
               type="text"

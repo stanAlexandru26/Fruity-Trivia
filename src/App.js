@@ -1,6 +1,12 @@
 import "./App.css";
 import React, { useState, useEffect } from "react";
-import { Route, Routes, useNavigate } from "react-router-dom";
+import {
+  Outlet,
+  Route,
+  Routes,
+  useLocation,
+  useNavigate,
+} from "react-router-dom";
 import axios from "axios";
 
 import Dashboard from "./pages/dashboard/Dashboard";
@@ -21,7 +27,7 @@ function App() {
   const [responseCode, setResponseCode] = useState(null);
 
   const [score, setScore] = useState(0);
-
+  const location = useLocation();
   const navigate = useNavigate();
 
   const [questionParameters, setQuestionParameters] = useState({
@@ -30,6 +36,12 @@ function App() {
     difficulty: "medium",
     type: "multiple",
   });
+
+  useEffect(() => {
+    if (location.pathname === "/") {
+      navigate("/home");
+    }
+  }, [location.pathname, navigate]);
 
   useEffect(() => {
     if (!sessionToken) {
@@ -85,13 +97,12 @@ function App() {
   }
 
   return (
-    <div className="app">
-      <div className="app__wrapper">
-        <div className="app__wrapper__navbar"></div>
-        <div className="app__wrapper__content">
-          <Routes>
+    <div className="app__wrapper">
+      <div className="app__wrapper__content">
+        <Routes>
+          <Route path="/" element={<Outlet />}>
             <Route
-              path="/"
+              path="/home"
               element={
                 <Dashboard
                   questionParameters={questionParameters}
@@ -133,8 +144,9 @@ function App() {
                 />
               }
             />
-          </Routes>
-        </div>
+          </Route>
+          <Route path="*" element={<Error />} />
+        </Routes>
       </div>
     </div>
   );
