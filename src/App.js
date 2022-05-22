@@ -83,7 +83,7 @@ function App() {
             : questionParameters.category
         }&difficulty=${questionParameters.difficulty}&type=${
           questionParameters.type
-        }&token=${sessionToken}&encode=base64`
+        }&token=${sessionToken}`
       )
       .then((res) => {
         setTriviaData(res.data.results);
